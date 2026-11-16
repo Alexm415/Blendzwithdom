@@ -426,7 +426,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
   gap: 1.1rem;
 }
 .service-card {
@@ -594,7 +594,7 @@
 }
 .facts {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 0.75rem;
   margin: 1.75rem 0 0;
 }
@@ -711,11 +711,17 @@
 }
 .contact-grid {
   list-style: none;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
+  max-width: 860px;
+}
+.contact-grid > li {
+  flex: 1 1 260px;
+  max-width: 380px;
 }
 .contact-card {
   display: grid;
@@ -759,8 +765,9 @@ a.contact-card:hover {
   font-weight: 700;
 }
 @media (max-width: 860px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
+  .contact-grid > li {
+    flex-basis: 100%;
+    max-width: none;
   }
 }
 
@@ -803,5 +810,124 @@ a.contact-card:hover {
     grid-template-columns: 1fr;
     justify-items: center;
     text-align: center;
+  }
+}
+
+/* ---------- Rating badge ---------- */
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  margin-top: 1.6rem;
+}
+.hero-meta .hero-social {
+  margin-top: 0;
+}
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(231, 185, 62, 0.45);
+  background: rgba(231, 185, 62, 0.08);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+.rating-badge .icon {
+  color: var(--gold);
+}
+.rating-badge strong {
+  color: var(--gold);
+  font-weight: 800;
+}
+.rating-badge span {
+  color: var(--muted);
+}
+a.rating-badge:hover {
+  border-color: var(--gold);
+  background: rgba(231, 185, 62, 0.16);
+}
+.rating-badge-lg {
+  font-size: 1.05rem;
+  padding: 0.6rem 1.2rem;
+}
+
+.service-note {
+  margin: -0.4rem 0 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+.service-top + .service-meta {
+  margin-top: 1rem;
+}
+
+/* ---------- Reviews ---------- */
+.reviews-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-bottom: 2.5rem;
+}
+.reviews-head .section-heading {
+  margin-bottom: 0;
+}
+.reviews-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.review-card {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--red);
+}
+.review-stars {
+  color: var(--gold);
+  letter-spacing: 0.15em;
+}
+.review-card blockquote {
+  margin: 0;
+  flex: 1;
+}
+.review-card blockquote p {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+.review-card blockquote p::before {
+  content: '\201C';
+}
+.review-card blockquote p::after {
+  content: '\201D';
+}
+.review-card figcaption {
+  font-weight: 800;
+}
+.review-card figcaption span {
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-left: 0.35rem;
+}
+@media (max-width: 860px) {
+  .hero-meta {
+    justify-content: center;
   }
 }

@@ -10,6 +10,7 @@ const NAV = [
   { id: 'services', label: 'Services' },
   { id: 'gallery', label: 'Gallery' },
   { id: 'about', label: 'About' },
+  { id: 'reviews', label: 'Reviews' },
   { id: 'hours', label: 'Hours' },
   { id: 'contact', label: 'Contact' },
 ]
@@ -71,6 +72,34 @@ function PinIcon() {
     </svg>
   )
 }
+function StarIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="icon">
+      <path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9Z" fill="currentColor" />
+    </svg>
+  )
+}
+function CalendarIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="icon">
+      <rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  )
+}
+function RatingBadge({ className = '' }) {
+  const { rating } = siteConfig
+  return (
+    <SmartLink href={rating.url} className={`rating-badge ${className}`}>
+      <StarIcon />
+      <strong>{rating.score}</strong>
+      <span>
+        ({rating.count} reviews on {rating.source})
+      </span>
+    </SmartLink>
+  )
+}
+
 function ScissorsIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" className="icon">
@@ -158,7 +187,7 @@ function Hero() {
       <div className="smoke" aria-hidden="true" />
       <div className="container hero-inner">
         <div className="hero-copy">
-          <p className="eyebrow">Barber · Fades · Blends</p>
+          <p className="eyebrow">{brand.eyebrow}</p>
           <h1 id="hero-title" className="hero-title">
             {brand.name}
             <span className="crown" aria-hidden="true">♛</span>
@@ -171,9 +200,12 @@ function Hero() {
               View services
             </a>
           </div>
-          <SmartLink href={contact.instagram.url} className="hero-social">
-            <InstagramIcon /> {contact.instagram.handle}
-          </SmartLink>
+          <div className="hero-meta">
+            <RatingBadge />
+            <SmartLink href={contact.instagram.url} className="hero-social">
+              <InstagramIcon /> {contact.instagram.handle}
+            </SmartLink>
+          </div>
         </div>
         <div className="hero-art">
           <div className="logo-ring">
@@ -206,7 +238,8 @@ function Services() {
                 <h3>{s.name}</h3>
                 <span className="price">{s.price}</span>
               </div>
-              <p className="service-desc">{s.description}</p>
+              {s.description && <p className="service-desc">{s.description}</p>}
+              {s.note && <p className="service-note">{s.note}</p>}
               <p className="service-meta">
                 <ScissorsIcon /> {s.duration}
               </p>
@@ -283,10 +316,42 @@ function About() {
   )
 }
 
+function Reviews() {
+  const { reviews, rating } = siteConfig
+  if (!reviews.length) return null
+  return (
+    <section className="section section-alt" aria-labelledby="reviews-title" id="reviews">
+      <div className="container">
+        <div className="reviews-head">
+          <SectionHeading eyebrow="What clients say" title="Reviews" id="reviews-title" />
+          <RatingBadge className="rating-badge-lg" />
+        </div>
+        <ul className="reviews-grid">
+          {reviews.map((r) => (
+            <li key={r.name}>
+              <figure className="review-card">
+                <div className="review-stars" aria-hidden="true">
+                  ★★★★★
+                </div>
+                <blockquote>
+                  <p>{r.text}</p>
+                </blockquote>
+                <figcaption>
+                  {r.name} <span>via {rating.source}</span>
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
 function Hours() {
   const { hours, location } = siteConfig
   return (
-    <section className="section section-alt" aria-labelledby="hours-title" id="hours">
+    <section className="section" aria-labelledby="hours-title" id="hours">
       <div className="container">
         <SectionHeading eyebrow="Pull up" title="Hours & Location" id="hours-title" />
         <div className="hours-grid">
@@ -326,7 +391,8 @@ function Hours() {
 function Contact() {
   const { contact, booking } = siteConfig
   const cards = [
-    { label: 'Instagram', value: contact.instagram.handle, href: contact.instagram.url, Icon: InstagramIcon, hint: 'DM to book' },
+    { label: booking.platform, value: contact.booksy.display, href: contact.booksy.url, Icon: CalendarIcon, hint: 'Book online' },
+    { label: 'Instagram', value: contact.instagram.handle, href: contact.instagram.url, Icon: InstagramIcon, hint: 'Send a DM' },
     { label: 'Phone', value: contact.phone.display, href: contact.phone.url, Icon: PhoneIcon, hint: 'Call or text' },
     { label: 'Email', value: contact.email.display, href: contact.email.url, Icon: MailIcon, hint: 'Send a message' },
   ]
@@ -336,13 +402,13 @@ function Contact() {
         <SectionHeading eyebrow="Lock in your spot" title="Book a Cut" id="contact-title" />
         <p className="contact-note">{booking.note}</p>
         <ul className="contact-grid">
-          {cards.map(({ label, value, href, Icon, hint }) => (
+          {cards.filter((c) => isSet(c.href)).map(({ label, value, href, Icon, hint }) => (
             <li key={label}>
               <SmartLink href={href} className="contact-card">
                 <Icon />
                 <span className="contact-label">{label}</span>
                 <span className="contact-value">{value}</span>
-                <span className="contact-hint">{isSet(href) ? hint : 'Coming soon'}</span>
+                <span className="contact-hint">{hint}</span>
               </SmartLink>
             </li>
           ))}
@@ -388,6 +454,7 @@ export default function App() {
         <Services />
         <Gallery />
         <About />
+        <Reviews />
         <Hours />
         <Contact />
       </main>

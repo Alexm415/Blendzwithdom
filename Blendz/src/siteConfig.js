@@ -1,56 +1,89 @@
 // =============================================================================
-// Blendzwitdom — site content
+// Blendzwitdom: site content
 // -----------------------------------------------------------------------------
-// This is the ONE file to edit when real info is ready. Everything the site
-// shows (name, services, prices, hours, location, links, gallery) lives here.
-// Anything marked TODO is placeholder text and needs the real value.
-// A link left as '#' is treated as "not set yet" and is shown as disabled.
+// This is the ONE file to edit. Everything the site shows (name, services,
+// prices, hours, location, links, reviews, gallery) lives here.
+// Anything marked TODO is still placeholder content.
+// A link left as '#' (or empty) is treated as "not set": contact boxes with
+// no link are hidden, other links show as disabled "Coming soon".
+// Sources: Instagram @blendzwitdom bio and Booksy page (checked Nov 16, 2026).
 // =============================================================================
 
 const instagramUrl = 'https://www.instagram.com/blendzwitdom'
+const booksyUrl = 'https://booksy.com/en-us/971232_blendedbydom_barber-shop_119449_hayward'
 
 export const siteConfig = {
   brand: {
     name: 'Blendzwitdom',
     tagline: 'Fresh fades. Clean blends.',
-    // TODO: optional one-line intro under the tagline (keep it short).
-    intro: 'Precision cuts, sharp line-ups and blends done right.',
+    eyebrow: 'Hayward · Bay Area Barber',
+    intro: 'Fades, tapers & line-ups by Dominic Mena. Open Tuesday through Saturday.',
   },
 
   // Where every "Book Now" button goes.
-  // Until a real booking link exists, booking happens through an Instagram DM.
   booking: {
-    // TODO: replace with a booking page (Booksy, Square, Calendly, etc.) when ready.
-    url: instagramUrl,
+    url: booksyUrl,
     label: 'Book Now',
-    note: 'Booking is by DM on Instagram for now. Send @blendzwitdom a message with the cut you want and a day that works.',
+    platform: 'Booksy',
+    note: 'Book online through Booksy, Tuesday through Saturday. Questions? Send @blendzwitdom a DM on Instagram.',
   },
+
+  // Rating shown in the hero and the Reviews section. Update occasionally from Booksy.
+  rating: {
+    score: '4.9',
+    count: 66,
+    source: 'Booksy',
+    url: booksyUrl,
+  },
+
+  // Real client reviews from Booksy (first names as shown there).
+  reviews: [
+    { name: 'Xavier', text: 'Tap in with Dom, he got the best taper/line-up in the town 👌👌' },
+    { name: 'Abdul', text: "Dom is very professional and well mannered on top of that he brought me back to life!! He's a magician fr appreciate you bro!!" },
+    { name: 'Brandon', text: 'I liked the chill vibes and i really like my new haircut' },
+    { name: 'Allan', text: '🔥🔥🔥 absolutely loved the cut. 15/10' },
+  ],
 
   barber: {
     name: 'Dominic Mena',
-    // Shown under the name in About.
     title: 'Barber behind Blendzwitdom',
-    // TODO: real bio paragraphs.
     bio: [
-      'Short bio goes here: how he got started cutting hair and what he loves about the craft.',
-      'Second paragraph: his specialties, the vibe of the chair, and what clients can expect.',
+      'Dominic Mena is a barber based in Hayward, serving the Bay Area. He focuses on fades, tapers and clean line-ups.',
+      'He takes appointments Tuesday through Saturday, booked online through Booksy.',
     ],
-    // TODO: real quick facts (years cutting, specialties, etc.). Delete any you don't want.
     facts: [
-      { label: 'Experience', value: 'X years' },
-      { label: 'Specialty', value: 'Specialty here' },
-      { label: 'Based in', value: 'Your city' },
+      { label: 'Specialty', value: 'Fades, tapers & line-ups' },
+      { label: 'Based in', value: 'Hayward / Bay Area' },
     ],
   },
 
-  // TODO: real services, prices and durations. Add or remove items freely.
+  // From Booksy. `note` is optional and shows under the description.
   services: [
-    { name: 'Service name', price: '$XX', duration: 'XX min', description: 'Short description of the service.' },
-    { name: 'Service name', price: '$XX', duration: 'XX min', description: 'Short description of the service.' },
-    { name: 'Service name', price: '$XX', duration: 'XX min', description: 'Short description of the service.' },
-    { name: 'Service name', price: '$XX', duration: 'XX min', description: 'Short description of the service.' },
-    { name: 'Service name', price: '$XX', duration: 'XX min', description: 'Short description of the service.' },
-    { name: 'Service name', price: '$XX', duration: 'XX min', description: 'Short description of the service.' },
+    {
+      name: 'Mens haircut fade/tapers + line up',
+      price: '$35',
+      duration: '1h',
+      description: 'Any type of fade or taper. Beard not included. Color enhancements included if wanted.',
+    },
+    {
+      name: 'Haircut & beard',
+      price: '$45',
+      duration: '1h 15min',
+      description: 'Haircut plus beard and mustache.',
+    },
+    {
+      name: 'Kids haircut (ages 7–14)',
+      price: '$30',
+      duration: '1h',
+      description: '',
+    },
+    {
+      name: 'Housecall service',
+      price: 'From $100',
+      duration: '1h 30min',
+      description: 'House call haircuts.',
+      note: 'Price varies by location',
+    },
   ],
 
   // Gallery of cuts.
@@ -65,35 +98,30 @@ export const siteConfig = {
     { image: null, alt: 'Haircut photo', caption: 'Line-up' },
     { image: null, alt: 'Haircut photo', caption: 'Blend' },
     { image: null, alt: 'Haircut photo', caption: 'Beard' },
-    { image: null, alt: 'Haircut photo', caption: 'Design' },
+    { image: null, alt: 'Haircut photo', caption: 'Kids cut' },
   ],
 
-  // TODO: real hours. Use 'Closed' or 'By appointment' as needed.
+  // TODO: exact opening times are unknown; replace 'By appointment' with real times if wanted.
   hours: [
-    { day: 'Monday', time: 'X:XX – X:XX' },
-    { day: 'Tuesday', time: 'X:XX – X:XX' },
-    { day: 'Wednesday', time: 'X:XX – X:XX' },
-    { day: 'Thursday', time: 'X:XX – X:XX' },
-    { day: 'Friday', time: 'X:XX – X:XX' },
-    { day: 'Saturday', time: 'X:XX – X:XX' },
-    { day: 'Sunday', time: 'X:XX – X:XX' },
+    { day: 'Tue – Sat', time: 'By appointment' },
+    { day: 'Sun – Mon', time: 'Closed' },
   ],
 
   location: {
-    // TODO: shop name (or remove), street address, and city.
-    shopName: 'Shop name',
-    address: 'Street address',
-    city: 'Your city, ST',
-    // TODO: Google Maps link to the shop, e.g. https://maps.google.com/?q=...
-    mapUrl: '#',
+    shopName: 'Blendedbydom',
+    address: '935 B St',
+    city: 'Hayward, CA 94541',
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=935+B+St+Hayward+CA+94541',
   },
 
+  // Contact boxes. Any entry whose url is '#' is hidden.
   contact: {
+    booksy: { display: 'Blendedbydom', url: booksyUrl },
     instagram: { handle: '@blendzwitdom', url: instagramUrl },
-    // TODO: real phone number, both display text and tel: link (digits only).
-    phone: { display: '(XXX) XXX-XXXX', url: '#' }, // e.g. 'tel:+15555555555'
-    // TODO: optional email; leave url as '#' to show it as "coming soon".
-    email: { display: 'email@example.com', url: '#' }, // e.g. 'mailto:you@example.com'
+    // TODO: phone unknown. Set display and url (e.g. 'tel:+15105551234') to show it.
+    phone: { display: '', url: '#' },
+    // TODO: email unknown. Set display and url (e.g. 'mailto:you@example.com') to show it.
+    email: { display: '', url: '#' },
   },
 }
 
