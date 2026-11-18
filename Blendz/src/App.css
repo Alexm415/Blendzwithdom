@@ -492,71 +492,75 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
 .gallery-tile {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 4;
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--panel);
   border: 1px solid var(--line);
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
 }
+.gallery-tile figure {
+  margin: 0;
+  height: 100%;
+}
+.gallery-tile picture,
 .gallery-tile img {
+  display: block;
   width: 100%;
   height: 100%;
+}
+.gallery-tile img {
   object-fit: cover;
   transition: transform 0.4s ease;
+}
+.gallery-tile::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 40%;
+  background: linear-gradient(transparent, rgba(7, 7, 7, 0.75));
+  pointer-events: none;
 }
 .gallery-tile:hover img {
   transform: scale(1.04);
 }
-.placeholder-art {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 0.75rem;
-  color: rgba(247, 245, 242, 0.55);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  background:
-    repeating-linear-gradient(135deg, rgba(224, 36, 44, 0.08) 0 14px, transparent 14px 28px),
-    radial-gradient(circle at 50% 40%, rgba(231, 185, 62, 0.12), transparent 60%),
-    linear-gradient(180deg, #1a1a1d, #0e0e10);
-}
-.placeholder-art .icon {
-  width: 42px;
-  height: 42px;
-  color: var(--gold);
+.gallery-tile:hover {
+  border-color: rgba(231, 185, 62, 0.55);
 }
 .gallery-caption {
   position: absolute;
   left: 0.8rem;
   bottom: 0.8rem;
+  z-index: 1;
   padding: 0.3rem 0.75rem;
   border-radius: 999px;
-  background: rgba(7, 7, 7, 0.8);
-  border: 1px solid rgba(231, 185, 62, 0.5);
+  background: rgba(7, 7, 7, 0.82);
+  border: 1px solid rgba(231, 185, 62, 0.55);
   color: var(--white);
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.gallery-more {
-  margin: 2rem 0 0;
-  text-align: center;
-  color: var(--muted);
-}
-@media (max-width: 860px) {
+@media (max-width: 960px) {
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
+  }
+}
+@media (max-width: 420px) {
+  .gallery-caption {
+    left: 0.5rem;
+    bottom: 0.5rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.55rem;
+    white-space: nowrap;
   }
 }
 

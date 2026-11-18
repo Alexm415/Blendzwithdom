@@ -255,32 +255,29 @@ function Services() {
 }
 
 function Gallery() {
-  const { gallery, contact } = siteConfig
+  const { gallery, galleryMoreUrl } = siteConfig
   return (
     <section className="section section-alt" aria-labelledby="gallery-title" id="gallery">
       <div className="container">
         <SectionHeading eyebrow="Fresh off the chair" title="Gallery" id="gallery-title" />
         <ul className="gallery-grid">
-          {gallery.map((g, i) => (
-            <li key={i} className={`gallery-tile ${g.image ? '' : 'is-placeholder'}`}>
-              {g.image ? (
-                <img src={g.image} alt={g.alt} loading="lazy" decoding="async" />
-              ) : (
-                <div className="placeholder-art" role="img" aria-label={`Photo coming soon: ${g.caption}`}>
-                  <ScissorsIcon />
-                  <span>Photo coming soon</span>
-                </div>
-              )}
-              <span className="gallery-caption">{g.caption}</span>
+          {gallery.map((g) => (
+            <li key={g.caption} className="gallery-tile">
+              <figure>
+                <picture>
+                  {g.webp && <source type="image/webp" srcSet={g.webp} />}
+                  <img src={g.image} alt={g.alt} width="750" height="1000" loading="lazy" decoding="async" />
+                </picture>
+                <figcaption className="gallery-caption">{g.caption}</figcaption>
+              </figure>
             </li>
           ))}
         </ul>
-        <p className="gallery-more">
-          More cuts on Instagram:{' '}
-          <SmartLink href={contact.instagram.url} className="text-link">
-            {contact.instagram.handle}
+        <div className="section-cta">
+          <SmartLink href={galleryMoreUrl} className="btn btn-ghost">
+            <InstagramIcon /> See more on Instagram
           </SmartLink>
-        </p>
+        </div>
       </div>
     </section>
   )

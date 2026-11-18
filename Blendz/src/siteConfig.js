@@ -9,6 +9,15 @@
 // Sources: Instagram @blendzwitdom bio and Booksy page (checked Nov 16, 2026).
 // =============================================================================
 
+import taperFadeJpg from './assets/gallery/taper-fade-line-up.jpg'
+import taperFadeWebp from './assets/gallery/taper-fade-line-up.webp'
+import dropFadeJpg from './assets/gallery/drop-fade-mullet.jpg'
+import dropFadeWebp from './assets/gallery/drop-fade-mullet.webp'
+import highTaperJpg from './assets/gallery/high-taper.jpg'
+import highTaperWebp from './assets/gallery/high-taper.webp'
+import burstFadeJpg from './assets/gallery/burst-fade.jpg'
+import burstFadeWebp from './assets/gallery/burst-fade.webp'
+
 const instagramUrl = 'https://www.instagram.com/blendzwitdom'
 const booksyUrl = 'https://booksy.com/en-us/971232_blendedbydom_barber-shop_119449_hayward'
 
@@ -86,20 +95,20 @@ export const siteConfig = {
     },
   ],
 
-  // Gallery of cuts.
-  // TODO: add real haircut photos. To add one:
-  //   1. Put the photo in src/assets/gallery/ (e.g. cut-1.jpg; ~1200px wide JPG/WebP is plenty).
-  //   2. Import it at the top of this file:  import cut1 from './assets/gallery/cut-1.jpg'
-  //   3. Set  image: cut1  and a short  alt  description on one of the items below.
-  // Items with image: null show a styled placeholder tile.
+  // Gallery of cuts (portrait photos, 3:4, ~750x1000).
+  // To add or swap a photo:
+  //   1. Put a JPG (and optionally a WebP copy) in src/assets/gallery/.
+  //   2. Import it at the top of this file.
+  //   3. Add an item below with image (JPG), webp (optional), alt and caption.
   gallery: [
-    { image: null, alt: 'Haircut photo', caption: 'Fade' },
-    { image: null, alt: 'Haircut photo', caption: 'Taper' },
-    { image: null, alt: 'Haircut photo', caption: 'Line-up' },
-    { image: null, alt: 'Haircut photo', caption: 'Blend' },
-    { image: null, alt: 'Haircut photo', caption: 'Beard' },
-    { image: null, alt: 'Haircut photo', caption: 'Kids cut' },
+    { image: taperFadeJpg, webp: taperFadeWebp, alt: 'Taper fade with a crisp line-up and longer hair in back, front view', caption: 'Taper fade + line-up' },
+    { image: dropFadeJpg, webp: dropFadeWebp, alt: 'Drop fade with a sharp line-up and twists tied back, side view', caption: 'Drop fade mullet' },
+    { image: highTaperJpg, webp: highTaperWebp, alt: 'High taper with a sharp line-up, side view', caption: 'High taper' },
+    { image: burstFadeJpg, webp: burstFadeWebp, alt: 'Short textured cut with a burst fade and clean line-up, front view', caption: 'Burst fade' },
   ],
+
+  // "See more" link under the gallery.
+  galleryMoreUrl: 'https://www.instagram.com/blendzwitdom',
 
   // TODO: exact opening times are unknown; replace 'By appointment' with real times if wanted.
   hours: [
