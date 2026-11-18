@@ -17,6 +17,15 @@ import highTaperJpg from './assets/gallery/high-taper.jpg'
 import highTaperWebp from './assets/gallery/high-taper.webp'
 import burstFadeJpg from './assets/gallery/burst-fade.jpg'
 import burstFadeWebp from './assets/gallery/burst-fade.webp'
+import skinFadeMp4 from './assets/videos/skin-fade-design.mp4'
+import skinFadeWebm from './assets/videos/skin-fade-design.webm'
+import skinFadePoster from './assets/videos/skin-fade-design-poster.jpg'
+import mulletMp4 from './assets/videos/line-up-mullet.mp4'
+import mulletWebm from './assets/videos/line-up-mullet.webm'
+import mulletPoster from './assets/videos/line-up-mullet-poster.jpg'
+import spongeMp4 from './assets/videos/taper-sponge-curls.mp4'
+import spongeWebm from './assets/videos/taper-sponge-curls.webm'
+import spongePoster from './assets/videos/taper-sponge-curls-poster.jpg'
 
 const instagramUrl = 'https://www.instagram.com/blendzwitdom'
 const booksyUrl = 'https://booksy.com/en-us/971232_blendedbydom_barber-shop_119449_hayward'
@@ -105,6 +114,14 @@ export const siteConfig = {
     { image: dropFadeJpg, webp: dropFadeWebp, alt: 'Drop fade with a sharp line-up and twists tied back, side view', caption: 'Drop fade mullet' },
     { image: highTaperJpg, webp: highTaperWebp, alt: 'High taper with a sharp line-up, side view', caption: 'High taper' },
     { image: burstFadeJpg, webp: burstFadeWebp, alt: 'Short textured cut with a burst fade and clean line-up, front view', caption: 'Burst fade' },
+  ],
+
+  // "Watch the work" clips: muted 8-second portrait loops (406x720 MP4 + WebM + poster JPG).
+  // To add one, put the files in src/assets/videos/, import them above, and add an item.
+  videos: [
+    { mp4: skinFadeMp4, webm: skinFadeWebm, poster: skinFadePoster, alt: 'Video of a high skin fade with a shaved line design', caption: 'Skin fade + design' },
+    { mp4: mulletMp4, webm: mulletWebm, poster: mulletPoster, alt: 'Video of a buzzed top with a sharp line-up, fade and mullet', caption: 'Line-up + mullet' },
+    { mp4: spongeMp4, webm: spongeWebm, poster: spongePoster, alt: 'Video of a taper fade with a sponge-curl top and sharp line-up', caption: 'Taper + sponge curls' },
   ],
 
   // "See more" link under the gallery.

@@ -10,6 +10,9 @@ Anything marked `TODO` is placeholder content. Links left as `'#'` show as "Comi
 Gallery photos live in `src/assets/gallery/` (750×1000 JPG + WebP). To add or swap one,
 import it at the top of `src/siteConfig.js` and add it to `gallery` (instructions are in the file).
 
+Video clips live in `src/assets/videos/` (406×720 muted MP4 + WebM + poster JPG) and are
+listed under `videos` in `src/siteConfig.js`.
+
 ## Run it
 
 ```bash

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { siteConfig, isSet } from './siteConfig.js'
 import logo720 from './assets/blendzwitdom-logo-720.webp'
 import logo480 from './assets/blendzwitdom-logo-480.webp'
@@ -9,6 +9,7 @@ import './App.css'
 const NAV = [
   { id: 'services', label: 'Services' },
   { id: 'gallery', label: 'Gallery' },
+  { id: 'videos', label: 'Videos' },
   { id: 'about', label: 'About' },
   { id: 'reviews', label: 'Reviews' },
   { id: 'hours', label: 'Hours' },
@@ -283,10 +284,86 @@ function Gallery() {
   )
 }
 
+function usePrefersReducedMotion() {
+  const query = '(prefers-reduced-motion: reduce)'
+  const [reduced, setReduced] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches)
+  useEffect(() => {
+    const mq = window.matchMedia(query)
+    const onChange = () => setReduced(mq.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+  return reduced
+}
+
+/** Muted looping clip that only plays while on screen; shows the poster when motion is reduced. */
+function VideoCard({ video, reducedMotion }) {
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || reducedMotion) return undefined
+    if (!('IntersectionObserver' in window)) {
+      el.play().catch(() => {})
+      return undefined
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play().catch(() => {})
+        else el.pause()
+      },
+      { threshold: 0.35 },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [reducedMotion])
+
+  return (
+    <figure className="video-card">
+      <video
+        ref={ref}
+        poster={video.poster}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        width="406"
+        height="720"
+        aria-label={video.alt}
+        controls={reducedMotion}
+      >
+        {video.webm && <source src={video.webm} type="video/webm" />}
+        <source src={video.mp4} type="video/mp4" />
+      </video>
+      <figcaption className="gallery-caption">{video.caption}</figcaption>
+    </figure>
+  )
+}
+
+function Videos() {
+  const { videos } = siteConfig
+  const reducedMotion = usePrefersReducedMotion()
+  if (!videos?.length) return null
+  return (
+    <section className="section" aria-labelledby="videos-title" id="videos">
+      <div className="container">
+        <SectionHeading eyebrow="Finished-cut reveals" title="Watch the Work" id="videos-title" />
+        <ul className="video-row">
+          {videos.map((v) => (
+            <li key={v.caption}>
+              <VideoCard video={v} reducedMotion={reducedMotion} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
 function About() {
   const { barber } = siteConfig
   return (
-    <section className="section" aria-labelledby="about-title" id="about">
+    <section className="section section-alt" aria-labelledby="about-title" id="about">
       <div className="container about-grid">
         <div className="about-badge" aria-hidden="true">
           <img src={logo480} alt="" width="480" height="480" loading="lazy" />
@@ -317,7 +394,7 @@ function Reviews() {
   const { reviews, rating } = siteConfig
   if (!reviews.length) return null
   return (
-    <section className="section section-alt" aria-labelledby="reviews-title" id="reviews">
+    <section className="section" aria-labelledby="reviews-title" id="reviews">
       <div className="container">
         <div className="reviews-head">
           <SectionHeading eyebrow="What clients say" title="Reviews" id="reviews-title" />
@@ -348,7 +425,7 @@ function Reviews() {
 function Hours() {
   const { hours, location } = siteConfig
   return (
-    <section className="section" aria-labelledby="hours-title" id="hours">
+    <section className="section section-alt" aria-labelledby="hours-title" id="hours">
       <div className="container">
         <SectionHeading eyebrow="Pull up" title="Hours & Location" id="hours-title" />
         <div className="hours-grid">
@@ -450,6 +527,7 @@ export default function App() {
         <Hero />
         <Services />
         <Gallery />
+        <Videos />
         <About />
         <Reviews />
         <Hours />
