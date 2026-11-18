@@ -22,3 +22,9 @@ npm run lint
 npm run build    # production build in dist/
 npm run preview  # preview the build
 ```
+
+## Deploy (GitHub Pages)
+
+The site is built with `base: '/Blendzwithdom/'` for https://alexm415.github.io/Blendzwithdom/.
+Build, copy `dist/index.html` to `dist/404.html`, add an empty `dist/.nojekyll`, and publish
+`dist/` to the `gh-pages` branch. Set `VITE_BASE=/` when hosting at a domain root.
